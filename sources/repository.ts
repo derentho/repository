@@ -5,7 +5,7 @@ import { Updater } from "./updater.ts";
  * A repository is a set of `value` (type `V`), accessibles by `key` (type `K`),
  *  on which you can perform basics `CRUD` operations (`create`, `retrieve`,
  *  `update` and `delete`).
- * 
+ *
  * @template K The type of the keys.
  * @template V The type of the values.
  */
@@ -59,20 +59,19 @@ export class Repository<K extends string | number | symbol, V> {
 
   /**
    * Adds a `(key, value)` pair to the repository.
-   * 
+   *
    * @param key The pair key.
    * @param value The pair value.
-   * @returns Whether a pair has been deleted or not.
+   * @returns The inserted pair key.
    */
-  create(key: K, value: V): boolean {
-    const erased = this.#data[key] ? true : false;
+  create(key: K, value: V): K {
     this.#data[key] = value;
-    return erased;
+    return key;
   }
 
   /**
    * Retrieves a subset of the repository.
-   * 
+   *
    * @param predicate A function filtering the repository.
    * @returns The computed subset.
    */
@@ -89,7 +88,7 @@ export class Repository<K extends string | number | symbol, V> {
 
   /**
    * Retrieves the entire repository.
-   * 
+   *
    * @returns The full repository.
    */
   retrieveAll(): Record<K, V> {
@@ -98,7 +97,7 @@ export class Repository<K extends string | number | symbol, V> {
 
   /**
    * Updates a subset of the repository.
-   * 
+   *
    * @param predicate A function filtering the repository.
    * @param updater A function modifying the subset.
    * @returns The number of updated entry.
@@ -117,7 +116,7 @@ export class Repository<K extends string | number | symbol, V> {
 
   /**
    * Deletes a subset of the repository.
-   * 
+   *
    * @param predicate A function filtering the repository.
    * @returns The number of deleted entry.
    */
